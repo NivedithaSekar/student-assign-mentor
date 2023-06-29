@@ -61,10 +61,8 @@ adminRouter.put("/assignMentorToStudent", async (req, res) => {
   const { body: updateObj } = req;
   //Read the student object - current
   const currentStudObj = await readOneEntity("students", updateObj.studentId);
-  console.log(currentStudObj);
   //Read the current mentor object of the student
   const mentorObj = await readOneEntity("mentors", currentStudObj.mentor);
-  console.log(mentorObj);
   //if any of the return is null, User not found!
   if (currentStudObj === null || mentorObj === null) {
     res.status(400).send({ msg: "Data update failed!" });
@@ -88,7 +86,7 @@ adminRouter.put("/assignMentorToStudent", async (req, res) => {
         },
       ],
     };
-    console.log(updatedMentor);
+    
     await updateOneEntity(
       "students",
       updateObj.studentId,
@@ -123,9 +121,8 @@ adminRouter.put("/assignMentorToStudent", async (req, res) => {
 
 adminRouter.get("/getHistory", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
   await readOneEntity("students", id).then((msg) =>
-    msg.length === 0
+    msg === null
       ? res.status(400).send({ msg: "Incorrect Id!" })
       : res.send({ history: msg.history })
   );
