@@ -33,7 +33,7 @@ adminRouter.post('/createBatch',async (req, res) => {
 adminRouter.put('/assignStudents',async (req, res) => {
     const {body: updateObj} = req;
     //console.log(updateObj)
-    await updateOcurrentObjneEntity('mentors',updateObj.mentorId,updateObj.students)
+    await updateOneEntity('mentors',updateObj.mentorId,updateObj.students)
     .then(await updateManyEntity('students',updateObj.students,updateObj.mentorId))
     .then((msg) => msg.acknowledged ? res.send({msg: "Data updated successfully"}):res.status(400).send({msg: "Data update failed!"}))
 })
