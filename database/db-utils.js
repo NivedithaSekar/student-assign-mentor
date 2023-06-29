@@ -47,8 +47,11 @@ const createEntity = async (entityName, entityObj) => {
 
 // update one entity --> PUT
 const updateOneEntity = async (entityName, entityId, entityObj, history) => {
-  const query = entityName === 'mentors' ? { $push: { students: { $each: entityObj } } } : [{$set: { mentor:entityObj, history: history} }]
-  return await DbClient.db(DB_NAME)
+  const query = entityName === 'mentors' && history ? {$set: entityObj} : entityName === 'mentors' ?
+    { $push: { students: { $each: entityObj } } } 
+    : 
+    [{$set: { mentor:entityObj, history: history} }]
+   return await DbClient.db(DB_NAME)
     .collection(entityName)
     .updateOne({ id: entityId }, query);
 };
@@ -114,5 +117,5 @@ export {
   updateOneEntity,
   updateManyEntity,
   deleteEntity,
-  findAllWithQuery
+  findAllWithQuery,
 };
