@@ -10,7 +10,7 @@ app.use('/admin',adminRouter)
 app.use('/mentor',mentorRouter)
 
 app.get('/', function (req, res) {
-    res.send({msg:"App Running Successfully!"})
+    res.send('<h4>Postman Pusblished Doc: <a href="" target="_blank"></a></h4>')
   })
   
   app.listen(3000)
