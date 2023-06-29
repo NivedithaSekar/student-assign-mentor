@@ -10,7 +10,7 @@ app.use('/admin',adminRouter)
 app.use('/mentor',mentorRouter)
 
 app.get('/', function (req, res) {
-    res.send('port running at 300 successfully')
+    res.send({msg:"App Running Successfully!"})
   })
   
   app.listen(3000)
